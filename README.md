@@ -18,3 +18,4 @@ Then you will need to open "index.js" with any text editor (notepad works fine)
 You will want to focus on this particular part of the code:
 https://cdn.discordapp.com/attachments/764872898481356831/809580765393584158/unknown.png
 Changing "e" to a valid mc color code will change the color of the [BRIDGE]. Changing the "3" to any valid mc color code will change the color of the name.
+
