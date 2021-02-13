@@ -31,7 +31,7 @@ register("command", (e) => {
   ChatLib.chat('&2Guild > ' + sayText + ' Testing 123')
 }).setName("mmbridgetest")
 register("command", (e) => {
-  ChatLib.chat('&6[MMBRIDGE]&f: &rTo customize the module, you need to edit the box in the /mmbridge settings menu. To do this, click on the box and edit the numbers to any valid mc color code. The first one will change the colour of the &e[BRIDGE]&r prefix and the second one changes the color of the  name. &c&lYou need to /mmreload for the settings to update.')
+  ChatLib.chat('&6[MMBRIDGE]&f: &rTo customize the module, you need to edit the box in the /mmbridge settings menu. To do this, click on the box and edit the numbers to any valid mc color code. The first one will change the colour of the &e[BRIDGE]&r prefix and the second one changes the color of the discord user's name. &c&lYou need to /mmreload for the settings to update.')
 }).setName("mmguide")
 register("command", (e) => {
   ChatLib.chat('&11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff &ll')
