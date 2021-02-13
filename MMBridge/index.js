@@ -15,11 +15,9 @@ const settings = new SettingsObject('MMBridge', [
           " ",
           () => {}
       ),
-      new Setting.Button(
-        "To see your changes you must do /mmreload",
-        " ",
-        () => {}
-    ),
+      new Setting.Button("To see your changes you must /mmreload", " Or Click Here", () => {
+        ChatLib.command("mmreload", true);
+      })
       ],
   },
 ]).setCommand('mmbridge').setSize(400, 100);
