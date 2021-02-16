@@ -1,54 +1,70 @@
-import { Setting, SettingsObject } from "SettingsManager/SettingsManager";
-const settings = new SettingsObject('MMBridge', [
-  {
-      name: 'Module Settings',
+import { Setting, SettingsObject } from "../SettingsManager/SettingsManager";
+const settings = new SettingsObject("MMBridge",
+  [
+    {
+      name: "Settings",
       settings: [
-          new Setting.Toggle('Toggle Module', true),
-          new Setting.TextInput("Customize", "&e[BRIDGE]&3"),
-          new Setting.Button(
-            "Do /mmguide for a guide on how to use the customization box",
-            " ",
-            () => {}
-        ),
-        new Setting.Button(
-          "Do /mmcolors for a list of color codes",
-          " ",
-          () => {}
-      ),
-      new Setting.Button("To see your changes you must /mmreload", " Or Click Here", () => {
-        ChatLib.command("mmreload", true);
-      })
-      ],
-  },
-]).setCommand('mmbridge').setSize(400, 100);
+        new Setting.Toggle("Enabled", false),
+        new Setting.TextInput("Bridge Text", "[BRIDGE]"),
+        new Setting.StringSelector("Bridge Color", 0, [
+          "&4Dark Red",
+          "&cRed",
+          "&6Gold",
+          "&eYellow",
+          "&2Dark Green",
+          "&aGreen",
+          "&bAqua",
+          "&3Dark Aqua",
+          "&1Dark Blue",
+          "&9Blue",
+          "&dLight Purple",
+          "&5Dark Purple",
+          "&fWhite",
+          "&7Gray",
+          "&8Dark Gray",
+          "&0Black"
+        ]),
+        new Setting.Toggle("Bridge Bold", false),
 
+        new Setting.StringSelector("Discord User Color", 0, [
+          "&4Dark Red",
+          "&cRed",
+          "&6Gold",
+          "&eYellow",
+          "&2Dark Green",
+          "&aGreen",
+          "&bAqua",
+          "&3Dark Aqua",
+          "&1Dark Blue",
+          "&9Blue",
+          "&dLight Purple",
+          "&5Dark Purple",
+          "&fWhite",
+          "&7Gray",
+          "&8Dark Gray",
+          "&0Black"
+        ]),
+        new Setting.Toggle("Discord User Bold", false),
+      ]
+    }
+  ]
+).setCommand("mmbridge");
 Setting.register(settings);
 
-let sayText = settings.getSetting('Module Settings', "Customize");
-let refresh = false
+let toggle, bridgeText, bridgeColor, bridgeBold, discordColor, discordBold;
 
-register("command", (e) => {
-  ChatLib.chat('&2Guild > ' + sayText + ' Testing 123')
-}).setName("mmbridgetest")
-register("command", (e) => {
-  ChatLib.chat('&6[MMBRIDGE]&f: &rTo customize the module, you need to edit the box in the /mmbridge settings menu. To do this, click on the box and edit the numbers to any valid mc color code. The first one will change the colour of the &e[BRIDGE]&r prefix and the second one changes the color of the discord user's name. &c&lYou need to /mmreload for the settings to update.')
-}).setName("mmguide")
-register("command", (e) => {
-  ChatLib.chat('&11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff &ll')
-}).setName("mmcolors")
-register("command", (e) => {
-  sayText = settings.getSetting('Module Settings', "Customize");
-  ChatLib.chat('&aReloaded color settings')
-}).setName("mmreload")
+register("tick", () => {
+  toggle = settings.getSetting("Settings", "Enabled");
+  bridgeText = settings.getSetting("Settings", "Bridge Text");
+  bridgeColor = settings.getSetting("Settings", "Bridge Color").substring(0, 2);
+  bridgeBold = settings.getSetting("Settings", "Bridge Bold") ? "§l" : "";
+  discordColor = settings.getSetting("Settings", "Discord User Color").substring(0, 2);
+  discordBold = settings.getSetting("Settings", "Discord User Bold") ? "§l" : "";
+});
 
-register("chat", function(event) {
-  var unformattedMessage = ChatLib.getChatMessage(event);
-  msgString = unformattedMessage.toString();
-  if(!settings.getSetting("Module Settings", "Toggle Module")) return;
-  if(msgString.startsWith("§2Guild > §a[VIP] 0oompaL0oompa §6[R]§f:")){
-    cancel(event)
-    msgString = msgString.replace("§2Guild > §a[VIP] 0oompaL0oompa §6[R]§f: ",'&2Guild > '+ sayText + ' ')
-    msgString = msgString.replace(": ","§f: ")
-    ChatLib.chat(msgString)
-  }
-})
+register("chat", (player, msg, event) => {
+  if (!toggle) return;
+  cancel(event);
+  ChatLib.chat(`§2Guild > ${bridgeColor + bridgeBold + bridgeText} ${discordColor + discordBold + player}§r: ${msg}`);
+}).setCriteria("&r&2Guild > &b[MVP&0+&b] FireInfusion &6[Staff]&f: &r${player}: ${msg}&r");
+
