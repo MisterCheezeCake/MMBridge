@@ -1,11 +1,12 @@
 import { Setting, SettingsObject } from "../SettingsManager/SettingsManager";
-const settings = new SettingsObject("MMBridge",
+const settings = new SettingsObject("UniversalBridge",
   [
     {
       name: "Settings",
       settings: [
-        new Setting.Toggle("Enabled", false),
+        new Setting.Toggle("Enabled", true),
         new Setting.TextInput("Bridge Text", "[BRIDGE]"),
+        new Setting.TextInput("Bot Name", "MMChatBot"),
         new Setting.StringSelector("Bridge Color", 0, [
           "&4Dark Red",
           "&cRed",
@@ -48,23 +49,22 @@ const settings = new SettingsObject("MMBridge",
       ]
     }
   ]
-).setCommand("mmbridge");
+).setCommand("bridge");
 Setting.register(settings);
 
-let toggle, bridgeText, bridgeColor, bridgeBold, discordColor, discordBold;
+register("chat", bridgeChat).setCriteria("&r&2Guild > ${*} ${bot} ${*}: &r${player}: ${msg}&r");
+register("chat", bridgeChat).setCriteria("&r&2Guild > ${bot} ${*}: &r${player}: ${msg}&r");
+register("chat", bridgeChat).setCriteria("&r&2Guild > ${*} ${bot}: &r${player}: ${msg}&r");
+register("chat", bridgeChat).setCriteria("&r&2Guild > ${bot}: &r${player}: ${msg}&r");
 
-register("tick", () => {
-  toggle = settings.getSetting("Settings", "Enabled");
+function bridgeChat(bot, player, msg, event) {
+  if (!settings.getSetting("Settings", "Enabled")) return;
+  if (settings.getSetting("Settings", "Bot Name") !== ChatLib.removeFormatting(bot)) return;
+  cancel(event);
   bridgeText = settings.getSetting("Settings", "Bridge Text");
   bridgeColor = settings.getSetting("Settings", "Bridge Color").substring(0, 2);
   bridgeBold = settings.getSetting("Settings", "Bridge Bold") ? "§l" : "";
   discordColor = settings.getSetting("Settings", "Discord User Color").substring(0, 2);
   discordBold = settings.getSetting("Settings", "Discord User Bold") ? "§l" : "";
-});
-
-register("chat", (player, msg, event) => {
-  if (!toggle) return;
-  cancel(event);
   ChatLib.chat(`§2Guild > ${bridgeColor + bridgeBold + bridgeText} ${discordColor + discordBold + player}§r: ${msg}`);
-}).setCriteria("&r&2Guild > &b[MVP&0+&b] FireInfusion &6[Staff]&f: &r${player}: ${msg}&r");
-
+}
