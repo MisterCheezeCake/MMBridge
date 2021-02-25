@@ -4,6 +4,6 @@
   "description": "Makes any Discord Bridge look better",
   "version":"1.0.0",
   "requires": ["SettingsManager"],
-  "entry": "index.js"
+  "entry": "index.js",
   "helpMessage": "&8Welcome to the UniversalBridge module. To get started type the command &d/bridge&8. After you are in the menu, input the name of your guild's bot and slect the color scheme of your choosing.
 }
