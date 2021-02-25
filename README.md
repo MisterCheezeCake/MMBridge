@@ -1,8 +1,9 @@
-# MMBridge
-MM Bridge is a module designed to improve the look of the new Money Moves discord bridge. The module is fully customizable using the settings menu /mmbridge. 
+# UniversalBirdge
+UniversalBridge is a module to improve the look of any guild's discord bridge. The module is very simple to use. Just do the command /bridge, input the bot's name' select a color scheme, and boom, your bridge looks better.
+#### /bridge to configure the module
 ## Credits
-- Inspiration taken from itqxic and his bagchat module
-- Major credit goes towards Senither for developing the bridge and to Thundeee and Vigintillion for our implementation of it
-- Squagward for his major help with the 2.0.0 overhaul.
-
-Will probably support Rice Moves if and when they add a bridge.
+- Kerbybit making the bridge universal
+- Squagward for some misc stuff
+### Links
+GitHub: 
+Discord: https://discord.gg/YH3hw926hz
