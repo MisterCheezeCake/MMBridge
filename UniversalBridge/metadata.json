@@ -1,0 +1,8 @@
+{
+  "name": "UniversalBridge",
+  "creator": "MisterCheezeCake",
+  "description": "Makes any Discord Bridge look better",
+  "version":"1.0.0",
+  "requires": ["SettingsManager"],
+  "entry": "index.js"
+}

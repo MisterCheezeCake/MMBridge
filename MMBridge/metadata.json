@@ -1,8 +1,0 @@
-{
-  "name": "MMBridge",
-  "creator": "MisterCheezeCake",
-  "description": "Makes the Money Moves Discord Bridge look better",
-  "version":"2.0.0",
-  "requires": ["SettingsManager"],
-  "entry": "index.js"
-}
